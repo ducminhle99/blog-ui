@@ -1,0 +1,7 @@
+.post{
+    width: 400px;
+    margin: 0 25px 40px 25px;
+    display: flex;
+    flex-direction: column;
+}
+
