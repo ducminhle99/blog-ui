@@ -1,7 +1,7 @@
 .top {
     width: 100%;
     height: 50px;
-    background-color: white;
+    background-color: rgb(206, 204, 204);
     position: sticky;
     top: 0;
     display: flex;
@@ -65,9 +65,4 @@
     cursor: pointer;
   }
   
-  .topSearchIcon {
-    font-size: 18px;
-    color: #666;
-    cursor: pointer;
-  }
   

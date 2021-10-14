@@ -1,32 +1,52 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { Context } from "../../context/Context";
+
 import "./header.css"
 
 export default function Header() {
+    const { user, dispatch } = useContext(Context);
+    const photoDir = "http://localhost:5000/images/";
+
+    const handleLogout = () => {
+        dispatch({ type: "LOGOUT" });
+    };
+
     return (
         <div className="top">
-            <div className="topLeft">
-                <i class="topIcon fas fa-blog"></i>
+            <Link to="/" className="topLeft link">
+                <i className="topIcon fas fa-blog"></i>
                 <h2>Blog app</h2>
-            </div>
+            </Link>
             <div className="topCenter">
                 <ul className="topList">
-                    <li className="topMenu">HOME</li>
-                    <li className="topMenu">ABOUT</li>
-                    <li className="topMenu">CONTACT</li>
-                    <li className="topMenu">WRITE</li>
+                    <Link to="/" className="topMenu link">HOME</Link>
+                    <Link to="contact" className="topMenu link">CONTACT</Link>
+                    <Link to="/write" className="topMenu link">WRITE</Link>
+                    <li className="topMenu link" onClick={handleLogout}>
+                        {user && "LOGOUT"}
+                    </li>
                 </ul>
             </div>
             <div className="topRight">
-                <ul className="topList">
-                    <li className="topMenu">
-                        login
-                    </li>
-                    <li className="topMenu">
-                        register
-                    </li>
-                </ul>
-
-                <i className="topSearchIcon fas fa-search"></i>
+                {user ? (
+                    <Link to="/settings">
+                        <img className="topImg" src={photoDir + user.avatar} alt="" />
+                    </Link>
+                ) : (
+                    <ul className="topList">
+                        <li className="topMenu link">
+                            <Link className="link" to="/login">
+                                LOGIN
+                            </Link>
+                        </li>
+                        <li className="topMenu link">
+                            <Link className="link" to="/register">
+                                REGISTER
+                            </Link>
+                        </li>
+                    </ul>
+                )}
             </div>
         </div>
     )

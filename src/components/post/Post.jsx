@@ -1,39 +1,31 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import "./post.css";
 
 export default function Post(props) {
-    const { img } = props;
+    const photoDir = "http://localhost:5000/images/"
+    const { post } = props;
     return (
         <div className="post">
-            <img
-                src={img}
+            {post.photo && (<img
+                src={photoDir + post.photo}
                 alt=""
                 className="postImg"
-            />
+            />)}
 
             <div className="postInfo">
                 <div className="postCats">
-                    <span className="postCat">
-                        <a className="link"> Music</a>
-                    </span>
-                    <span className="postCat">
-                        <a className="link"> Life</a>
-                    </span>
-                    <span className="postCat">
-                        <a className="link"> Music</a>
-                    </span>
-                    <span className="postCat">
-                        <a className="link"> Music</a>
-                    </span>
+                    {post.categories.map((c, index) => (
+                        <Link to="/" className="sidebarListItem link" key={index}>{c.name}</Link>
+                    ))}
                 </div>
                 <div className="postTitle">
-                    <a className="link">Lorem ipsum dolor sit </a>
+                    <Link to={`/posts/${post._id}`} className="link">{post.title}</Link>
                 </div>
-                <p className="postDec">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore natus repudiandae ut iusto,
-                    atque eos eligendi culpa perspiciatis, tempora nam nostrum magnam ex ullam corporis ipsum,
-                    quia non at quo. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse reprehenderit architecto,
-                    sapiente adipisci numquam quam consectetur a magnam ullam? Ullam nam illum ipsam, ipsa quam id possimus rem doloremque eius.
+                <hr />
+                <span className="postDate">{new Date(post.createdAt).toDateString()}</span>
+                <p className="postDesc">
+                    {post.description}
                 </p>
             </div>
         </div>
